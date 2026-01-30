@@ -34,6 +34,7 @@ public class GridManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow)) ToggleInputPixel(5); // Q1
         if (Input.GetKeyDown(KeyCode.S)) ToggleInputPixel(6);          // Q0
         if (Input.GetKeyDown(KeyCode.D)) SubmitLine();
+        if (Input.GetKeyDown(KeyCode.G)) ResetGrid();
     }
 
     private void ToggleInputPixel(int index)
@@ -94,5 +95,14 @@ public class GridManager : MonoBehaviour
                 inputImages[i].color = inputLineData[i] ? Color.white : Color.black;
             }
         }
+    }
+
+    private void ResetGrid()
+    {
+        gridData = new bool[10, 7];
+        inputLineData = new bool[7];
+
+        RenderGrid();
+        RenderInputLine();
     }
 }
