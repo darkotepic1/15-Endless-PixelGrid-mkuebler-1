@@ -27,6 +27,7 @@ public class GridManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow)) ToggleInputPixel(4);  // Q2
         if (Input.GetKeyDown(KeyCode.RightArrow)) ToggleInputPixel(5); // Q1
         if (Input.GetKeyDown(KeyCode.S)) ToggleInputPixel(6);          // Q0
+        if (Input.GetKeyDown(KeyCode.D)) SubmitLine();
     }
 
     private void ToggleInputPixel(int index)
@@ -34,6 +35,27 @@ public class GridManager : MonoBehaviour
         if (index >= 0 && index < inputLineData.Length)
         {
             inputLineData[index] = !inputLineData[index];
+        }
     }
+
+    private void SubmitLine()
+    {
+        for (int row = 0; row < 9; row++)
+        {
+            for (int col = 0; col < 7; col++)
+            {
+                gridData[row, col] = gridData[row + 1, col];
+            }
+        }
+
+        for (int col = 0; col < 7; col++)
+        {
+            gridData[9, col] = inputLineData[col];
+        }
+
+        for (int col = 0; col < 7; col++)
+        {
+            inputLineData[col] = false;
+        }
     }
 }
