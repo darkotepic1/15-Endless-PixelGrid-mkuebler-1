@@ -1,17 +1,23 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GridManager : MonoBehaviour
 {
+    [Header("UI References")]
+    public List<Image> gridImages;
+
+    public List <Image> inputImages;
+
     private bool[] inputLineData = new bool[7];
 
     private bool[,] gridData = new bool[10, 7];
 
     void Start()
     {
-        
+        RenderGrid();
+        RenderInputLine();
     }
-
-    // ... (Datenmodell Code von vorher)
 
     void Update()
     {
@@ -36,6 +42,8 @@ public class GridManager : MonoBehaviour
         {
             inputLineData[index] = !inputLineData[index];
         }
+
+        RenderInputLine();
     }
 
     private void SubmitLine()
@@ -56,6 +64,35 @@ public class GridManager : MonoBehaviour
         for (int col = 0; col < 7; col++)
         {
             inputLineData[col] = false;
+        }
+
+        RenderGrid();
+        RenderInputLine();
+    }
+
+    private void RenderGrid()
+    {
+        for (int row = 0; row < 10; row++)
+        {
+            for (int col = 0; col < 7; col++)
+            {
+                int listIndex = row * 7 + col;
+                if (listIndex < gridImages.Count)
+                {
+                    gridImages[listIndex].color = gridData[row, col] ? Color.white : Color.black;
+                }
+            }
+        }
+    }
+
+    private void RenderInputLine()
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            if (i < inputImages.Count)
+            {
+                inputImages[i].color = inputLineData[i] ? Color.white : Color.black;
+            }
         }
     }
 }
